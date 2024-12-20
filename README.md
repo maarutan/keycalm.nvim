@@ -26,7 +26,7 @@ Use your preferred plugin manager to install KeyCalm.nvim. For example:
 use {
   'maarutan/keycalm.nvim',
   config = function()
-    require('keycalm').setup({
+    require('key-calm').setup({
       delay = 2000,           -- Delay time in milliseconds
       keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
       icon = "🤠",            -- Default notification icon
@@ -47,7 +47,7 @@ use {
 {
   'maarutan/keycalm.nvim',
   config = function()
-    require('keycalm').setup({
+    require('key-clam').setup({
       delay = 2000,           -- Delay time in milliseconds
       keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
       icon = "🤠",            -- Default notification icon
@@ -69,7 +69,7 @@ use {
 KeyCalm.nvim is fully configurable via the `setup` function. Below is an example configuration:
 
 ```lua
-require('keycalm').setup({
+require('key-clam').setup({
   delay = 3000,           -- Delay time in milliseconds
   keys = { "h", "j", "k" }, -- Keys to monitor
   icon = "😎",            -- Icon for notifications

@@ -1,6 +1,6 @@
 # KeyCalm.nvim
 
-![KeyCalm Demo](./.github/.keycalm.gif)
+![KeyCalm Demo](./.github/keycalm.gif)
 
 **KeyCalm.nvim** is a Neovim plugin designed to help you manage frequent keypresses. If you press certain keys too quickly, it gently reminds you to "calm down" with customizable notifications.
 

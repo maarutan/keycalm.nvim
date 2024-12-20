@@ -27,16 +27,39 @@ use {
   'maarutan/keycalm.nvim',
   config = function()
     require('keycalm').setup({
-      -- Your custom configuration
+      delay = 2000,           -- Delay time in milliseconds
+      keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
+      icon = "🤠",            -- Default notification icon
+      message = "Hold it Cowboy!", -- Default notification message
+      keySkip = "<Esc>",      -- Default skip key
+      lpIcon = 7,             -- Left padding for icon
+      rpIcon = 0,             -- Right padding for icon
+      lpText = 7,             -- Left padding for text
+      rpText = 7,             -- Right padding for text
     })
   end
 }
 ```
 
-### With [vim-plug](https://github.com/junegunn/vim-plug)
+### With [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-```vim
-Plug 'maarutan/keycalm.nvim'
+```lua
+{
+  'maarutan/keycalm.nvim',
+  config = function()
+    require('keycalm').setup({
+      delay = 2000,           -- Delay time in milliseconds
+      keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
+      icon = "🤠",            -- Default notification icon
+      message = "Hold it Cowboy!", -- Default notification message
+      keySkip = "<Esc>",      -- Default skip key
+      lpIcon = 7,             -- Left padding for icon
+      rpIcon = 0,             -- Right padding for icon
+      lpText = 7,             -- Left padding for text
+      rpText = 7,             -- Right padding for text
+    })
+  end
+}
 ```
 
 ---

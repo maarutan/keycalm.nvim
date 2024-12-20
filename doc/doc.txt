@@ -1,0 +1,99 @@
+
+=============================================================================
+*keycalm.txt*                     KeyCalm.nvim Documentation
+=============================================================================
+
+Author: Your Name <maratarzymatov288@gmail.com>  
+Version: 1.0.0  
+License: MIT  
+
+-----------------------------------------------------------------------------
+Introduction ~
+-----------------------------------------------------------------------------
+KeyCalm.nvim is a Neovim plugin designed to help users control the pace of
+repeated keypresses. If you press specific keys too frequently, the plugin
+will issue a notification, encouraging you to "calm down" and take a moment.
+
+Default notifications include a cowboy theme ("Hold it, Cowboy!"), but you can
+fully customize messages, icons, delays, and key bindings.
+
+-----------------------------------------------------------------------------
+Installation ~
+-----------------------------------------------------------------------------
+Use your favorite plugin manager to install KeyCalm.nvim. For example, with
+*vim-plug*:
+
+```vim
+Plug 'maarutan/keycalm.nvim'
+```
+
+With *packer.nvim*:
+
+```lua
+use 'maarutan/keycalm.nvim'
+```
+
+-----------------------------------------------------------------------------
+Configuration ~
+-----------------------------------------------------------------------------
+KeyCalm.nvim provides several customizable options. These can be set via the
+`setup` function.
+
+Example configuration:
+
+```lua
+require('keycalm').setup({
+    delay = 3000,            -- Time (in ms) before resetting the counter
+    keys = {"h", "j", "k"}, -- Keys to monitor
+    icon = "😎",             -- Icon for notifications
+    message = "Take it easy!", -- Notification message
+    keySkip = "<C-s>",      -- Key to skip delay (default is <Esc>)
+    lpIcon = 5,              -- Left padding for icon
+    rpIcon = 2,              -- Right padding for icon
+    lpText = 10,             -- Left padding for text
+    rpText = 10,             -- Right padding for text
+})
+```
+
+-----------------------------------------------------------------------------
+Commands and Functions ~
+-----------------------------------------------------------------------------
+- `setup(opts)`:
+  Configures the plugin with custom options. Options not specified will use
+default values.
+
+-----------------------------------------------------------------------------
+Default Options ~
+-----------------------------------------------------------------------------
+```lua
+{
+    delay = 2000,            -- Delay time in milliseconds
+    keys = {"h", "j", "k", "l", "+", "-"}, -- Monitored keys
+    icon = "🤠",             -- Default notification icon
+    message = "Hold it Cowboy!", -- Default notification message
+    keySkip = "<Esc>",       -- Default skip key
+    lpIcon = 7,              -- Left padding for icon
+    rpIcon = 0,              -- Right padding for icon
+    lpText = 7,              -- Left padding for text
+    rpText = 7,              -- Right padding for text
+}
+```
+
+-----------------------------------------------------------------------------
+How It Works ~
+-----------------------------------------------------------------------------
+1. Monitors specified keys.
+2. If a key is pressed more than 10 times in quick succession, triggers a
+   notification with a custom message and icon.
+3. Resets the count after a configurable delay.
+4. Allows skipping the delay via a configurable key.
+
+-----------------------------------------------------------------------------
+License ~
+-----------------------------------------------------------------------------
+KeyCalm.nvim is licensed under the MIT license.
+
+For any questions or contributions, please visit the repository:
+<https://github.com/maarutan/keycalm.nvim>
+
+=============================================================================

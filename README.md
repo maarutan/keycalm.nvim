@@ -25,19 +25,20 @@ Use your preferred plugin manager to install KeyCalm.nvim. For example:
 ```lua
 use {
   'maarutan/keycalm.nvim',
-  config = function()
-    require('key-calm').setup({
-      delay = 2000,           -- Delay time in milliseconds
-      keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
-      icon = "🤠",            -- Default notification icon
-      message = "Hold it Cowboy!", -- Default notification message
-      keySkip = "<Esc>",      -- Default skip key
-      lpIcon = 7,             -- Left padding for icon
-      rpIcon = 0,             -- Right padding for icon
-      lpText = 7,             -- Left padding for text
-      rpText = 7,             -- Right padding for text
-    })
-  end
+    config = function()
+      require('keycalm').setup({
+        delay = 2000, -- Delay time in milliseconds
+        keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+        max_count = 10, -- Number of repetitions before triggering block
+        icon = "🤠", -- Default icon
+        message = "Hold it Cowboy!", -- Default message
+        skip_key = "<Esc>", -- Key to reset the delay
+        lp_icon = 7, -- Left padding for the icon
+        rp_icon = 0, -- Right padding for the icon
+        lp_text = 7, -- Left padding for the message text
+        rp_text = 7, -- Right padding for the message text
+      })
+    end
 }
 ```
 
@@ -47,17 +48,18 @@ use {
 {
   'maarutan/keycalm.nvim',
   config = function()
-    require('key-clam').setup({
-      delay = 2000,           -- Delay time in milliseconds
-      keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
-      icon = "🤠",            -- Default notification icon
-      message = "Hold it Cowboy!", -- Default notification message
-      keySkip = "<Esc>",      -- Default skip key
-      lpIcon = 7,             -- Left padding for icon
-      rpIcon = 0,             -- Right padding for icon
-      lpText = 7,             -- Left padding for text
-      rpText = 7,             -- Right padding for text
-    })
+      require('keycalm').setup({
+        delay = 2000, -- Delay time in milliseconds
+        keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+        max_count = 10, -- Number of repetitions before triggering block
+        icon = "🤠", -- Default icon
+        message = "Hold it Cowboy!", -- Default message
+        skip_key = "<Esc>", -- Key to reset the delay
+        lp_icon = 7, -- Left padding for the icon
+        rp_icon = 0, -- Right padding for the icon
+        lp_text = 7, -- Left padding for the message text
+        rp_text = 7, -- Right padding for the message text
+      })
   end
 }
 ```
@@ -69,16 +71,16 @@ use {
 KeyCalm.nvim is fully configurable via the `setup` function. Below is an example configuration:
 
 ```lua
-require('key-clam').setup({
+require('keycalm').setup({
   delay = 3000,           -- Delay time in milliseconds
   keys = { "h", "j", "k" }, -- Keys to monitor
   icon = "😎",            -- Icon for notifications
   message = "Take it easy!", -- Notification message
-  keySkip = "<C-s>",     -- Key to skip the delay
-  lpIcon = 5,             -- Left padding for icon
-  rpIcon = 2,             -- Right padding for icon
-  lpText = 10,            -- Left padding for text
-  rpText = 10,            -- Right padding for text
+  skip_key = "<C-s>",     -- Key to skip the delay
+  lp_icon = 5,             -- Left padding for icon
+  rp_icon = 2,             -- Right padding for icon
+  lp_text = 10,            -- Left padding for text
+  rp_text = 10,            -- Right padding for text
 })
 ```
 
@@ -90,11 +92,11 @@ require('key-clam').setup({
   keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
   icon = "🤠",            -- Default notification icon
   message = "Hold it Cowboy!", -- Default notification message
-  keySkip = "<Esc>",      -- Default skip key
-  lpIcon = 7,             -- Left padding for icon
-  rpIcon = 0,             -- Right padding for icon
-  lpText = 7,             -- Left padding for text
-  rpText = 7,             -- Right padding for text
+  skip_key = "<Esc>",      -- Default skip key
+  lp_icon = 7,             -- Left padding for icon
+  rp_icon = 0,             -- Right padding for icon
+  lp_text = 7,             -- Left padding for text
+  rp_text = 7,             -- Right padding for text
 }
 ```
 
@@ -105,7 +107,21 @@ require('key-clam').setup({
 1. **Monitor Keypresses**: Tracks keys specified in the `keys` option.
 2. **Notify on Excessive Use**: Triggers a notification after 10 rapid keypresses.
 3. **Reset Automatically**: Resets the keypress counter after the specified delay.
-4. **Skip the Delay**: Use the `keySkip` shortcut to clear delays instantly.
+4. **Skip the Delay**: Use the `skip_key` shortcut to clear delays instantly.
+
+---
+
+## Troubleshooting
+
+### Notifications Not Showing
+- Ensure that `vim.notify` is available in your Neovim setup.
+- Verify the configuration with the `setup` function.
+
+### Keys Not Responding
+- Check if the `max_count` is reached for the key. If yes, use the `skip_key` to reset the delay.
+
+### Customization Not Working
+- Ensure the options are passed correctly in the `setup` function.
 
 ---
 

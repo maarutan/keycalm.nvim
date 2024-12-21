@@ -74,6 +74,7 @@ KeyCalm.nvim is fully configurable via the `setup` function. Below is an example
 require('keycalm').setup({
   delay = 3000,           -- Delay time in milliseconds
   keys = { "h", "j", "k" }, -- Keys to monitor
+  max_count = 10, -- Number of repetitions before triggering block
   icon = "😎",            -- Icon for notifications
   message = "Take it easy!", -- Notification message
   skip_key = "<C-s>",     -- Key to skip the delay
@@ -91,6 +92,7 @@ require('keycalm').setup({
   delay = 2000,           -- Delay time in milliseconds
   keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
   icon = "🤠",            -- Default notification icon
+  max_count = 10, -- Number of repetitions before triggering block
   message = "Hold it Cowboy!", -- Default notification message
   skip_key = "<Esc>",      -- Default skip key
   lp_icon = 7,             -- Left padding for icon

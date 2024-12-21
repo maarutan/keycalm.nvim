@@ -4,6 +4,7 @@ local M = {}
 -- Default settings
 M.options = {
 	delay = 2000, -- Delay time in milliseconds
+	timeout = 1000, -- Timeout for resetting counts
 	keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
 	max_count = 10, -- Number of repetitions before triggering block
 	icon = "🤠", -- Default icon
@@ -17,6 +18,7 @@ M.options = {
 
 local counts = {} -- Track counts for each key
 local timers = {} -- Store timers for each key
+local reset_timers = {} -- Timers to reset counts
 local notifications_shown = {} -- Track if notification has been shown for a key
 local blocked_keys = {} -- Track blocked keys
 
@@ -34,6 +36,7 @@ function M.cowboy()
 	for _, key in ipairs(M.options.keys) do
 		counts[key] = 0
 		timers[key] = nil
+		reset_timers[key] = nil
 		blocked_keys[key] = false
 		notifications_shown[key] = false
 
@@ -43,6 +46,19 @@ function M.cowboy()
 			end
 
 			counts[key] = counts[key] + 1
+
+			-- Reset the timeout timer for this key
+			if reset_timers[key] then
+				reset_timers[key]:stop()
+				reset_timers[key]:close()
+			end
+
+			reset_timers[key] = vim.loop.new_timer()
+			reset_timers[key]:start(M.options.timeout, 0, function()
+				counts[key] = 0
+				reset_timers[key]:close()
+				reset_timers[key] = nil
+			end)
 
 			if counts[key] >= M.options.max_count then
 				if not notifications_shown[key] then
@@ -83,6 +99,11 @@ function M.cowboy()
 				timers[key]:stop()
 				timers[key]:close()
 				timers[key] = nil
+			end
+			if reset_timers[key] then
+				reset_timers[key]:stop()
+				reset_timers[key]:close()
+				reset_timers[key] = nil
 			end
 			blocked_keys[key] = false
 			notifications_shown[key] = false

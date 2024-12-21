@@ -27,19 +27,19 @@ use {
   'maarutan/keycalm.nvim',
     config = function()
       require('keycalm').setup({
-        delay = 2000, -- Delay time in milliseconds
-        keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
-        max_count = 10, -- Number of repetitions before triggering block
-        icon = "🤠", -- Default icon
-        message = "Hold it Cowboy!", -- Default message
-        skip_key = "<Esc>", -- Key to reset the delay
-        lp_icon = 7, -- Left padding for the icon
-        rp_icon = 0, -- Right padding for the icon
-        lp_text = 7, -- Left padding for the message text
-        rp_text = 7, -- Right padding for the message text
-      })
+	    delay = 2000, -- Delay time in milliseconds
+	    timeout = 1000, -- Timeout for resetting counts
+	    keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+	    max_count = 10, -- Number of repetitions before triggering block
+	    icon = "🤠", -- Default icon
+	    message = "Hold it Cowboy!", -- Default message
+	    skip_key = "<Esc>", -- Key to reset the delay
+	    lp_icon = 7, -- Left padding for the icon
+	    rp_icon = 0, -- Right padding for the icon
+	    lp_text = 7, -- Left padding for the message text
+	    rp_text = 7, -- Right padding for the message text
+        })
     end
-}
 ```
 
 ### With [lazy.nvim](https://github.com/folke/lazy.nvim)
@@ -49,17 +49,18 @@ use {
   'maarutan/keycalm.nvim',
   config = function()
       require('keycalm').setup({
-        delay = 2000, -- Delay time in milliseconds
-        keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
-        max_count = 10, -- Number of repetitions before triggering block
-        icon = "🤠", -- Default icon
-        message = "Hold it Cowboy!", -- Default message
-        skip_key = "<Esc>", -- Key to reset the delay
-        lp_icon = 7, -- Left padding for the icon
-        rp_icon = 0, -- Right padding for the icon
-        lp_text = 7, -- Left padding for the message text
-        rp_text = 7, -- Right padding for the message text
-      })
+	    delay = 2000, -- Delay time in milliseconds
+	    timeout = 1000, -- Timeout for resetting counts
+	    keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+	    max_count = 10, -- Number of repetitions before triggering block
+	    icon = "🤠", -- Default icon
+	    message = "Hold it Cowboy!", -- Default message
+	    skip_key = "<Esc>", -- Key to reset the delay
+	    lp_icon = 7, -- Left padding for the icon
+	    rp_icon = 0, -- Right padding for the icon
+	    lp_text = 7, -- Left padding for the message text
+	    rp_text = 7, -- Right padding for the message text
+        })
   end
 }
 ```
@@ -72,12 +73,13 @@ KeyCalm.nvim is fully configurable via the `setup` function. Below is an example
 
 ```lua
 require('keycalm').setup({
-  delay = 3000,           -- Delay time in milliseconds
-  keys = { "h", "j", "k" }, -- Keys to monitor
-  max_count = 10, -- Number of repetitions before triggering block
-  icon = "😎",            -- Icon for notifications
+  delay = 3000,            -- Delay time in milliseconds
+  timeout = 1000,          -- Timeout for resetting counts
+  keys = { "h", "j", "k" },-- Keys to monitor
+  max_count = 10,          -- Number of repetitions before triggering block
+  icon = "😎",             -- Icon for notifications
   message = "Take it easy!", -- Notification message
-  skip_key = "<C-s>",     -- Key to skip the delay
+  skip_key = "<C-s>",      -- Key to skip the delay
   lp_icon = 5,             -- Left padding for icon
   rp_icon = 2,             -- Right padding for icon
   lp_text = 10,            -- Left padding for text
@@ -89,9 +91,10 @@ require('keycalm').setup({
 
 ```lua
 {
-  delay = 2000,           -- Delay time in milliseconds
+  delay = 2000,            -- Delay time in milliseconds
+  timeout = 1000,          -- Timeout for resetting counts
   keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
-  icon = "🤠",            -- Default notification icon
+  icon = "🤠",             -- Default notification icon
   max_count = 10, -- Number of repetitions before triggering block
   message = "Hold it Cowboy!", -- Default notification message
   skip_key = "<Esc>",      -- Default skip key

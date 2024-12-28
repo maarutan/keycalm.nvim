@@ -14,6 +14,7 @@ M.options = {
 	rp_icon = 0, -- Right padding for the icon
 	lp_text = 7, -- Left padding for the message text
 	rp_text = 7, -- Right padding for the message text
+	ignored_filetypes = { "neo-tree", "NvimTree", "TelescopePrompt", "help" }, -- Filetypes to ignore
 }
 
 local counts = {} -- Track counts for each key
@@ -21,6 +22,12 @@ local timers = {} -- Store timers for each key
 local reset_timers = {} -- Timers to reset counts
 local notifications_shown = {} -- Track if notification has been shown for a key
 local blocked_keys = {} -- Track blocked keys
+
+-- Check if the current buffer should be ignored
+local function should_ignore()
+	local filetype = vim.bo.filetype
+	return vim.tbl_contains(M.options.ignored_filetypes, filetype)
+end
 
 function M.setup(opts)
 	M.options = vim.tbl_deep_extend("force", M.options, opts or {})
@@ -41,6 +48,10 @@ function M.cowboy()
 		notifications_shown[key] = false
 
 		vim.keymap.set("n", key, function()
+			if should_ignore() then
+				return key -- Just pass the key if it's an ignored buffer
+			end
+
 			if blocked_keys[key] then
 				return ""
 			end

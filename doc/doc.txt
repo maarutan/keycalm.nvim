@@ -1,4 +1,3 @@
-
 =============================================================================
 *keycalm.txt*                     KeyCalm.nvim Documentation
 =============================================================================
@@ -47,11 +46,12 @@ require('keycalm').setup({
     keys = {"h", "j", "k"}, -- Keys to monitor
     icon = "😎",             -- Icon for notifications
     message = "Take it easy!", -- Notification message
-    keySkip = "<C-s>",      -- Key to skip delay (default is <Esc>)
-    lpIcon = 5,              -- Left padding for icon
-    rpIcon = 2,              -- Right padding for icon
-    lpText = 10,             -- Left padding for text
-    rpText = 10,             -- Right padding for text
+    skip_key = "<C-s>",      -- Key to skip delay (default is <Esc>)
+    lp_icon = 5,              -- Left padding for icon
+    rp_icon = 2,              -- Right padding for icon
+    lp_text = 10,             -- Left padding for text
+    rp_text = 10,             -- Right padding for text
+    ignored_filetypes = {"help", "TelescopePrompt"} -- Filetypes to ignore
 })
 ```
 
@@ -71,11 +71,12 @@ Default Options ~
     keys = {"h", "j", "k", "l", "+", "-"}, -- Monitored keys
     icon = "🤠",             -- Default notification icon
     message = "Hold it Cowboy!", -- Default notification message
-    keySkip = "<Esc>",       -- Default skip key
-    lpIcon = 7,              -- Left padding for icon
-    rpIcon = 0,              -- Right padding for icon
-    lpText = 7,              -- Left padding for text
-    rpText = 7,              -- Right padding for text
+    skip_key = "<Esc>",       -- Default skip key
+    lp_icon = 7,              -- Left padding for icon
+    rp_icon = 0,              -- Right padding for icon
+    lp_text = 7,              -- Left padding for text
+    rp_text = 7,              -- Right padding for text
+    ignored_filetypes = {"neo-tree", "NvimTree", "TelescopePrompt", "help"} -- Filetypes to ignore
 }
 ```
 
@@ -83,10 +84,12 @@ Default Options ~
 How It Works ~
 -----------------------------------------------------------------------------
 1. Monitors specified keys.
-2. If a key is pressed more than 10 times in quick succession, triggers a
+2. If a key is pressed more than the specified `max_count` in quick succession, triggers a
    notification with a custom message and icon.
-3. Resets the count after a configurable delay.
-4. Allows skipping the delay via a configurable key.
+3. Temporarily blocks the key for a delay period.
+4. Resets the count after a configurable timeout.
+5. Allows skipping the delay via a configurable key.
+6. Ignores monitoring in specified filetypes to avoid interference in certain contexts.
 
 -----------------------------------------------------------------------------
 License ~

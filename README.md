@@ -2,16 +2,17 @@
 
 ![KeyCalm Demo](./.github/keycalm.gif)
 
-**KeyCalm.nvim** is a Neovim plugin designed to help you manage frequent keypresses. If you press certain keys too quickly, it gently reminds you to "calm down" with customizable notifications.
+**KeyCalm.nvim** is a Neovim plugin designed to help you manage frequent keypresses. If you press certain keys too quickly, it gently reminds you to "calm down" with customizable notifications and behavior.
 
 ---
 
 ## Features
 
 - **Monitor keypresses**: Track specific keys to detect frequent usage.
-- **Custom notifications**: Fully configurable messages and icons.
-- **Smart delay reset**: Automatically resets counters after a customizable delay.
-- **Skip functionality**: Quickly bypass delays with a shortcut key.
+- **Custom notifications**: Fully configurable messages, icons, and padding for a personalized experience.
+- **Smart delay and timeout**: Automatically resets counters after a customizable timeout and temporarily blocks keys after excessive use.
+- **Ignored filetypes**: Avoid monitoring in specific filetypes like `help`, `Telescope`, and others.
+- **Reset functionality**: Quickly reset all counts and delays with a customizable shortcut key.
 - **Lightweight and fast**: Minimal impact on your Neovim setup.
 
 ---
@@ -25,21 +26,23 @@ Use your preferred plugin manager to install KeyCalm.nvim. For example:
 ```lua
 use {
   'maarutan/keycalm.nvim',
-    config = function()
-      require('keycalm').setup({
-	    delay = 2000, -- Delay time in milliseconds
-	    timeout = 1000, -- Timeout for resetting counts
-	    keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
-	    max_count = 10, -- Number of repetitions before triggering block
-	    icon = "🤠", -- Default icon
-	    message = "Hold it Cowboy!", -- Default message
-	    skip_key = "<Esc>", -- Key to reset the delay
-	    lp_icon = 7, -- Left padding for the icon
-	    rp_icon = 0, -- Right padding for the icon
-	    lp_text = 7, -- Left padding for the message text
-	    rp_text = 7, -- Right padding for the message text
-        })
-    end
+  config = function()
+    require('keycalm').setup({
+      delay = 2000,           -- Delay time in milliseconds
+      timeout = 1000,         -- Timeout for resetting counts
+      keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+      max_count = 10,         -- Number of repetitions before triggering block
+      icon = "🤠",           -- Default icon
+      message = "Hold it Cowboy!", -- Default message
+      skip_key = "<Esc>",    -- Key to reset the delay
+      lp_icon = 7,            -- Left padding for the icon
+      rp_icon = 0,            -- Right padding for the icon
+      lp_text = 7,            -- Left padding for the message text
+      rp_text = 7,            -- Right padding for the message text
+      ignored_filetypes = { "neo-tree", "NvimTree", "TelescopePrompt", "help" }, -- Filetypes to ignore
+    })
+  end
+}
 ```
 
 ### With [lazy.nvim](https://github.com/folke/lazy.nvim)
@@ -48,19 +51,20 @@ use {
 {
   'maarutan/keycalm.nvim',
   config = function()
-      require('keycalm').setup({
-	    delay = 2000, -- Delay time in milliseconds
-	    timeout = 1000, -- Timeout for resetting counts
-	    keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
-	    max_count = 10, -- Number of repetitions before triggering block
-	    icon = "🤠", -- Default icon
-	    message = "Hold it Cowboy!", -- Default message
-	    skip_key = "<Esc>", -- Key to reset the delay
-	    lp_icon = 7, -- Left padding for the icon
-	    rp_icon = 0, -- Right padding for the icon
-	    lp_text = 7, -- Left padding for the message text
-	    rp_text = 7, -- Right padding for the message text
-        })
+    require('keycalm').setup({
+      delay = 2000,           -- Delay time in milliseconds
+      timeout = 1000,         -- Timeout for resetting counts
+      keys = { "h", "j", "k", "l", "+", "-" }, -- Keys to track
+      max_count = 10,         -- Number of repetitions before triggering block
+      icon = "🤠",           -- Default icon
+      message = "Hold it Cowboy!", -- Default message
+      skip_key = "<Esc>",    -- Key to reset the delay
+      lp_icon = 7,            -- Left padding for the icon
+      rp_icon = 0,            -- Right padding for the icon
+      lp_text = 7,            -- Left padding for the message text
+      rp_text = 7,            -- Right padding for the message text
+      ignored_filetypes = { "neo-tree", "NvimTree", "TelescopePrompt", "help" }, -- Filetypes to ignore
+    })
   end
 }
 ```
@@ -73,17 +77,18 @@ KeyCalm.nvim is fully configurable via the `setup` function. Below is an example
 
 ```lua
 require('keycalm').setup({
-  delay = 3000,            -- Delay time in milliseconds
-  timeout = 1000,          -- Timeout for resetting counts
-  keys = { "h", "j", "k" },-- Keys to monitor
-  max_count = 10,          -- Number of repetitions before triggering block
-  icon = "😎",             -- Icon for notifications
+  delay = 3000,             -- Delay time in milliseconds
+  timeout = 1000,           -- Timeout for resetting counts
+  keys = { "h", "j", "k" }, -- Keys to monitor
+  max_count = 10,           -- Number of repetitions before triggering block
+  icon = "😎",              -- Icon for notifications
   message = "Take it easy!", -- Notification message
-  skip_key = "<C-s>",      -- Key to skip the delay
-  lp_icon = 5,             -- Left padding for icon
-  rp_icon = 2,             -- Right padding for icon
-  lp_text = 10,            -- Left padding for text
-  rp_text = 10,            -- Right padding for text
+  skip_key = "<C-s>",       -- Key to skip the delay
+  lp_icon = 5,              -- Left padding for icon
+  rp_icon = 2,              -- Right padding for icon
+  lp_text = 10,             -- Left padding for text
+  rp_text = 10,             -- Right padding for text
+  ignored_filetypes = { "help", "TelescopePrompt" }, -- Filetypes to ignore
 })
 ```
 
@@ -94,14 +99,15 @@ require('keycalm').setup({
   delay = 2000,            -- Delay time in milliseconds
   timeout = 1000,          -- Timeout for resetting counts
   keys = { "h", "j", "k", "l", "+", "-" }, -- Monitored keys
-  icon = "🤠",             -- Default notification icon
-  max_count = 10, -- Number of repetitions before triggering block
+  max_count = 10,          -- Number of repetitions before triggering block
+  icon = "🤠",            -- Default notification icon
   message = "Hold it Cowboy!", -- Default notification message
-  skip_key = "<Esc>",      -- Default skip key
+  skip_key = "<Esc>",     -- Default skip key
   lp_icon = 7,             -- Left padding for icon
   rp_icon = 0,             -- Right padding for icon
   lp_text = 7,             -- Left padding for text
   rp_text = 7,             -- Right padding for text
+  ignored_filetypes = { "neo-tree", "NvimTree", "TelescopePrompt", "help" }, -- Filetypes to ignore
 }
 ```
 
@@ -110,22 +116,27 @@ require('keycalm').setup({
 ## How It Works
 
 1. **Monitor Keypresses**: Tracks keys specified in the `keys` option.
-2. **Notify on Excessive Use**: Triggers a notification after 10 rapid keypresses.
-3. **Reset Automatically**: Resets the keypress counter after the specified delay.
-4. **Skip the Delay**: Use the `skip_key` shortcut to clear delays instantly.
+2. **Notify on Excessive Use**: Triggers a notification after the configured number of rapid keypresses.
+3. **Reset Automatically**: Resets the keypress counter after the specified timeout.
+4. **Temporarily Block Keys**: Blocks monitored keys temporarily to encourage a pause.
+5. **Skip Delays**: Use the `skip_key` shortcut to instantly reset counts and unblock keys.
+6. **Ignored Filetypes**: Automatically skips monitoring in ignored filetypes for seamless experience.
 
 ---
 
 ## Troubleshooting
 
 ### Notifications Not Showing
+
 - Ensure that `vim.notify` is available in your Neovim setup.
-- Verify the configuration with the `setup` function.
+- Verify the configuration in the `setup` function.
 
 ### Keys Not Responding
-- Check if the `max_count` is reached for the key. If yes, use the `skip_key` to reset the delay.
+
+- Check if the `max_count` limit is reached for the key. If so, use the `skip_key` to reset the delay.
 
 ### Customization Not Working
+
 - Ensure the options are passed correctly in the `setup` function.
 
 ---

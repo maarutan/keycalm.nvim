@@ -34,7 +34,6 @@ use {
       max_count = 10,         -- Number of repetitions before triggering block
       icon = "🤠",           -- Default icon
       message = "Hold it Cowboy!", -- Default message
-      skip_key = "<Esc>",    -- Key to reset the delay
       lp_icon = 7,            -- Left padding for the icon
       rp_icon = 0,            -- Right padding for the icon
       lp_text = 7,            -- Left padding for the message text
@@ -58,7 +57,6 @@ use {
       max_count = 10,         -- Number of repetitions before triggering block
       icon = "🤠",           -- Default icon
       message = "Hold it Cowboy!", -- Default message
-      skip_key = "<Esc>",    -- Key to reset the delay
       lp_icon = 7,            -- Left padding for the icon
       rp_icon = 0,            -- Right padding for the icon
       lp_text = 7,            -- Left padding for the message text
@@ -83,13 +81,14 @@ require('keycalm').setup({
   max_count = 10,           -- Number of repetitions before triggering block
   icon = "😎",              -- Icon for notifications
   message = "Take it easy!", -- Notification message
-  skip_key = "<C-s>",       -- Key to skip the delay
   lp_icon = 5,              -- Left padding for icon
   rp_icon = 2,              -- Right padding for icon
   lp_text = 10,             -- Left padding for text
   rp_text = 10,             -- Right padding for text
   ignored_filetypes = { "help", "TelescopePrompt" }, -- Filetypes to ignore
 })
+
+vim.keymap.set("n", "R", "<cmd>KeyCalmResetDelay<CR>", { noremap = true, silent = true }) -- Reset the delay
 ```
 
 ### Default Options
@@ -102,7 +101,6 @@ require('keycalm').setup({
   max_count = 10,          -- Number of repetitions before triggering block
   icon = "🤠",            -- Default notification icon
   message = "Hold it Cowboy!", -- Default notification message
-  skip_key = "<Esc>",     -- Default skip key
   lp_icon = 7,             -- Left padding for icon
   rp_icon = 0,             -- Right padding for icon
   lp_text = 7,             -- Left padding for text
@@ -119,7 +117,7 @@ require('keycalm').setup({
 2. **Notify on Excessive Use**: Triggers a notification after the configured number of rapid keypresses.
 3. **Reset Automatically**: Resets the keypress counter after the specified timeout.
 4. **Temporarily Block Keys**: Blocks monitored keys temporarily to encourage a pause.
-5. **Skip Delays**: Use the `skip_key` shortcut to instantly reset counts and unblock keys.
+5. **Skip Delays**: Use the command `KeyCalmResetDelay` shortcut to instantly reset counts and unblock keys.
 6. **Ignored Filetypes**: Automatically skips monitoring in ignored filetypes for seamless experience.
 
 ---

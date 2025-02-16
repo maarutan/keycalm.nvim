@@ -102,7 +102,7 @@ function M.cowboy()
 	end
 
 	-- Keymap to reset the delay and counts
-	vim.api.nvim_create_user_command("ResetDelays", function()
+	vim.api.nvim_create_user_command("KeyCalmResetDelay", function()
 		for key, _ in pairs(counts) do
 			counts[key] = 0
 			if timers[key] then

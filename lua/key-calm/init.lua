@@ -9,7 +9,6 @@ M.options = {
 	max_count = 10, -- Number of repetitions before triggering block
 	icon = "🤠", -- Default icon
 	message = "Hold it Cowboy!", -- Default message
-	skip_key = "<Esc>", -- Key to reset the delay
 	lp_icon = 7, -- Left padding for the icon
 	rp_icon = 0, -- Right padding for the icon
 	lp_text = 7, -- Left padding for the message text
@@ -103,7 +102,7 @@ function M.cowboy()
 	end
 
 	-- Keymap to reset the delay and counts
-	vim.keymap.set("n", M.options.skip_key, function()
+	vim.api.nvim_create_user_command("ResetDelays", function()
 		for key, _ in pairs(counts) do
 			counts[key] = 0
 			if timers[key] then
@@ -122,7 +121,7 @@ function M.cowboy()
 
 		local icon, message = M.format_notification(M.options.icon, "Delay reset for all keys!")
 		vim.notify(message, vim.log.levels.INFO, { icon = icon })
-	end, { noremap = true, silent = true })
+	end, { nargs = 0 })
 end
 
 -- Automatically call the cowboy function on load
